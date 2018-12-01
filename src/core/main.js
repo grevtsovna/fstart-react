@@ -1,3 +1,9 @@
+import '../tasks/tasks';
+
 console.log('main.js');
 
-require('../tasks/tasks');
+class Foo {
+    bar = 123;
+}
+
+console.log(new Foo().bar);

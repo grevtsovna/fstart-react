@@ -98,6 +98,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _tas
 
 /***/ }),
 
+/***/ "./src/core/main.scss":
+/*!****************************!*\
+  !*** ./src/core/main.scss ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/core/main.scss?");
+
+/***/ }),
+
 /***/ "./src/tasks/tasks.js":
 /*!****************************!*\
   !*** ./src/tasks/tasks.js ***!
@@ -110,13 +121,13 @@ eval("console.log('tasks.js');\n\n//# sourceURL=webpack:///./src/tasks/tasks.js?
 /***/ }),
 
 /***/ 0:
-/*!********************************!*\
-  !*** multi ./src/core/main.js ***!
-  \********************************/
+/*!*****************************************************!*\
+  !*** multi ./src/core/main.js ./src/core/main.scss ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__(/*! ./src/core/main.js */\"./src/core/main.js\");\n\n\n//# sourceURL=webpack:///multi_./src/core/main.js?");
+eval("__webpack_require__(/*! ./src/core/main.js */\"./src/core/main.js\");\nmodule.exports = __webpack_require__(/*! ./src/core/main.scss */\"./src/core/main.scss\");\n\n\n//# sourceURL=webpack:///multi_./src/core/main.js_./src/core/main.scss?");
 
 /***/ })
 

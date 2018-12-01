@@ -21,6 +21,7 @@ module.exports = {
             {
                 test: /\.s?css$/,
                 use: [
+                    'css-hot-loader',
                     MiniCssExtractPlugin.loader,
                     'css-loader',
                     'resolve-url-loader',

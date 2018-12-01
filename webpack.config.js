@@ -1,5 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: ['./src/core/main.js', './src/core/main.scss'],
@@ -28,6 +30,11 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({filename: 'bundle.css'}),
+        new HtmlWebpackPlugin({
+            template: './src/core/index.html',
+            hash: true,
+        }),
+        new CleanWebpackPlugin('dist')
     ],
     output: {
         path: path.join(__dirname, 'dist'),

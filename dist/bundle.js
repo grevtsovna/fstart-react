@@ -90,10 +90,11 @@
 /*!**************************!*\
   !*** ./src/core/main.js ***!
   \**************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("console.log('main.js');\r\n\r\n__webpack_require__(/*! ../tasks/tasks */ \"./src/tasks/tasks.js\");\n\n//# sourceURL=webpack:///./src/core/main.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _tasks_tasks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tasks/tasks */ \"./src/tasks/tasks.js\");\n/* harmony import */ var _tasks_tasks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_tasks_tasks__WEBPACK_IMPORTED_MODULE_0__);\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }\n\n\nconsole.log('main.js');\n\nvar Foo = function Foo() {\n  _classCallCheck(this, Foo);\n\n  _defineProperty(this, \"bar\", 123);\n};\n\nconsole.log(new Foo().bar);\n\n//# sourceURL=webpack:///./src/core/main.js?");
 
 /***/ }),
 

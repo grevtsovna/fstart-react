@@ -1,4 +1,4 @@
-import '../tasks/tasks';
+import "../tasks/tasks";
 
 console.log('main.js');
 

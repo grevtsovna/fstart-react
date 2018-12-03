@@ -11,12 +11,12 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env'],
             plugins: ['@babel/plugin-proposal-class-properties']
-          }
-        }
+          },
+        },
       },
       {
         test: /\.s?css$/,
@@ -30,18 +30,18 @@ module.exports = {
             options: {
               sourceMap: true,
               sourceMapContents: false
-            }
+            },
           }
         ]
       },
       {
         test: /\.(png|jpg|gif)$/,
         use: ['file-loader']
-      }
-    ]
+      },
+    ],
   },
   plugins: [
-    new MiniCssExtractPlugin({filename: 'bundle.css'}),
+    new MiniCssExtractPlugin({ filename: 'bundle.css' }),
     new HtmlWebpackPlugin({
       template: './src/core/index.html',
       hash: true,
@@ -51,5 +51,5 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
-  }
+  },
 };

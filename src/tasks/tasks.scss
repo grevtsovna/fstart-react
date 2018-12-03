@@ -1,3 +1,12 @@
 body {
-  background: url('./img/task.png') 50% no-repeat;
+  background: url(./img/task.png) 50% no-repeat;
+}
+
+.test {
+  padding: 3px;
+  margin: 65px;
+  background-repeat: none;
+  background: red;
+  left: 0;
+  top: 0;
 }

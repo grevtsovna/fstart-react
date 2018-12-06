@@ -7,5 +7,12 @@ module.exports = {
   rules: {
     'linebreak-style': ["error", "windows"],
     'comma-dangle': ["error", "never"]
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['src']
+      }
+    }
   }
 };

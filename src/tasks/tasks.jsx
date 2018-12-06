@@ -36,14 +36,14 @@ const tasks = [
     id: '7',
     text: 'React Router',
     isCompleted: false
-  },
+  }
 ];
 
 function Tasks() {
   return (
     <div className="tasks">
-      {tasks.map((data) => (
-        <Task data={data} key={data.id}/>
+      {tasks.map(data => (
+        <Task data={data} key={data.id} />
       ))}
     </div>
   );

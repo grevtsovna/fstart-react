@@ -4,16 +4,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: ['./src/core/main.js', './src/core/main.scss'],
+  entry: ['./src/core/main.jsx', './src/core/main.scss'],
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
             plugins: ['@babel/plugin-proposal-class-properties']
           },
         },
@@ -52,4 +52,8 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
   },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
+    modules: [path.join(__dirname, 'src'), 'node_modules']
+  }
 };

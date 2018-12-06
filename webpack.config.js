@@ -15,8 +15,8 @@ module.exports = {
           options: {
             presets: ['@babel/preset-env', '@babel/preset-react'],
             plugins: ['@babel/plugin-proposal-class-properties']
-          },
-        },
+          }
+        }
       },
       {
         test: /\.s?css$/,
@@ -30,21 +30,21 @@ module.exports = {
             options: {
               sourceMap: true,
               sourceMapContents: false
-            },
+            }
           }
         ]
       },
       {
         test: /\.(png|jpg|gif)$/,
         use: ['file-loader']
-      },
-    ],
+      }
+    ]
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: 'bundle.css' }),
     new HtmlWebpackPlugin({
       template: './src/core/index.html',
-      hash: true,
+      hash: true
     }),
     new CleanWebpackPlugin('dist')
   ],

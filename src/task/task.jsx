@@ -7,8 +7,12 @@ function Task({ data }) {
   );
 }
 
-/*Task.propTypes = {
-  data: PropTypes.string.isRequired
-};*/
+Task.propTypes = {
+  data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    isCompleted: PropTypes.bool
+  }).isRequired
+};
 
 export default Task;

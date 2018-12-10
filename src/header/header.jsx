@@ -25,8 +25,8 @@ function Appbar(props) {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             wLearn
           </Typography>
-          <Button color="inherit">Tasks</Button>
-          <Button color="inherit">About</Button>
+          <Button href="/">Tasks</Button>
+          <Button href="/about">About</Button>
         </Toolbar>
       </AppBar>
     </div>

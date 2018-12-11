@@ -23,11 +23,10 @@ function Appbar(props) {
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Toolbar>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            wLearn
-          </Typography>
+          <Typography variant="h6" color="inherit" className={classes.grow}>wLearn</Typography>
           <Button component={Link} to="/">Tasks</Button>
           <Button component={Link} to="/about">About</Button>
+          <Button component={Link} to="/collections">Словари</Button>
         </Toolbar>
       </AppBar>
     </div>

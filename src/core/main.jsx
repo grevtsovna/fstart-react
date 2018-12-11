@@ -4,4 +4,4 @@ import Root from './root';
 
 const rootElement = document.querySelector('#root');
 
-ReactDom.render(<Root/>, rootElement);
+ReactDom.render(<Root />, rootElement);

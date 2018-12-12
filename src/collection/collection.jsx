@@ -28,22 +28,19 @@ class Collection extends PureComponent {
 
   static propTypes = {
     collection: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired
-  };
-
-  handleChange = (evt) => {
-    console.log(evt);
+    classes: PropTypes.object.isRequired,
+    changeName: PropTypes.func.isRequired
   };
 
   render() {
-    const { collection, classes } = this.props;
+    const { collection, classes, changeName } = this.props;
     return (
       <TextField
         id={collection.id}
         label="Название словаря"
         className={classes.textField}
         value={collection.name}
-        onBlur={this.handleChange}
+        onBlur={changeName}
       />
     );
   }

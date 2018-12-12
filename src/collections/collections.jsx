@@ -37,6 +37,10 @@ class Collections extends PureComponent {
       });
   }
 
+  changeName = (evt) => {
+    console.log(evt.currentTarget.value);
+  };
+
   render() {
     const { classes } = this.props;
     const { collections, isLoading } = this.state;
@@ -46,11 +50,11 @@ class Collections extends PureComponent {
           <Grid container spacing={24}>
             { isLoading && <CircularProgress className="collections__preloader" />}
             {collections.map(collection => (
-              <Grid item xs={12}>
+              <Grid item xs={12} key={collection.id}>
                 <Paper className={classes.paper}>
                   <Collection
-                    key={collection.id}
                     collection={collection}
+                    changeName={this.changeName}
                   />
                 </Paper>
               </Grid>

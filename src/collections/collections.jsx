@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -51,12 +52,14 @@ class Collections extends PureComponent {
             { isLoading && <CircularProgress className="collections__preloader" />}
             {collections.map(collection => (
               <Grid item xs={12} key={collection.id}>
-                <Paper className={classes.paper}>
-                  <Collection
-                    collection={collection}
-                    changeName={this.changeName}
-                  />
-                </Paper>
+                <Link to={`/collections/${collection.id}`}>
+                  <Paper className={classes.paper}>
+                    <Collection
+                      collection={collection}
+                      changeName={this.changeName}
+                    />
+                  </Paper>
+                </Link>
               </Grid>
             ))}
           </Grid>

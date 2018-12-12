@@ -4,6 +4,7 @@ import Tasks from 'tasks/tasks';
 import About from 'about/about';
 import Appbar from 'header/header';
 import Collections from 'collections/collections';
+import Words from 'words/words';
 
 function Root() {
   return (
@@ -12,7 +13,8 @@ function Root() {
         <Appbar />
         <Route exact path="/" component={Tasks} />
         <Route path="/about" component={About} />
-        <Route path="/collections" component={Collections} />
+        <Route exact path="/collections" component={Collections} />
+        <Route path="/collections/:id" component={Words} />
       </div>
     </BrowserRouter>
   );

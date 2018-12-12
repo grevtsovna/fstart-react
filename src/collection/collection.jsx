@@ -41,6 +41,7 @@ class Collection extends PureComponent {
         className={classes.textField}
         value={collection.name}
         onBlur={changeName}
+        onClick={(evt) => { evt.preventDefault(); }}
       />
     );
   }

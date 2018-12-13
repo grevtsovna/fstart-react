@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import AddWord from 'add-word/add-word';
+import axios from 'axios';
 
 class Words extends PureComponent {
   state = {
@@ -12,20 +13,24 @@ class Words extends PureComponent {
 
   };
 
-  addWord() {
-
-  }
-
   componentDidMount() {
     this.setState({ isLoading: false });
   }
 
+  addWord = (word) => {
+    axios.post('/api/v1/words', word)
+      .then((response) => {
+        this.setState(prevState => ({
+          words: [...prevState.words, response.data.data]
+        }));
+      });
+  };
+
   render() {
     const { isLoading } = this.state;
-    console.log(this.props);
     return (
       <div className="words">
-        {!isLoading && <AddWord />}
+        {!isLoading && <AddWord addWord={this.addWord} />}
       </div>
     );
   }

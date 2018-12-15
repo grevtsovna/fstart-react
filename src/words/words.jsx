@@ -40,7 +40,6 @@ class Words extends PureComponent {
     const { match } = this.props;
     axios.get(`/api/v1/collections/${match.params.id}`)
       .then((response) => {
-        console.log(response);
         this.setState({ isLoading: false, words: response.data.data.words });
       });
   }
@@ -63,23 +62,20 @@ class Words extends PureComponent {
       <div className={classes.root}>
         <Grid container spacing={24}>
           { isLoading && <CircularProgress className={classes.preloader} /> }
-          { console.log(this.state) }
-          { words.map((word) => {
-            return (
-              <Grid item xs={4}>
-                <Card className={classes.card}>
-                  <CardContent>
-                    <Typography variant="h5" component="h2">
-                      { word.de }
-                    </Typography>
-                    <Typography component="p" className={classes.translation}>
-                      { word.ru }
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            );
-          }) }
+          { words.map(word => (
+            <Grid item xs={4}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Typography variant="h5" component="h2">
+                    { word.de }
+                  </Typography>
+                  <Typography component="p" className={classes.translation}>
+                    { word.ru }
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          )) }
         </Grid>
         {!isLoading && <AddWord addWord={this.addWord} />}
       </div>

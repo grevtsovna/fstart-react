@@ -8,10 +8,14 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import StartIcon from '@material-ui/icons/PlayCircleOutline';
 
 const styles = () => ({
   root: {
-    maxWidth: 600,
+    maxWidth: 900,
     margin: '50px auto 0'
   },
   card: {
@@ -22,13 +26,20 @@ const styles = () => ({
   },
   preloader: {
     margin: '50px auto 0'
+  },
+  startIcon: {
+    marginRight: 10
+  },
+  aside: {
+    padding: 15
   }
 });
 
 class Words extends PureComponent {
   state = {
     isLoading: true,
-    words: []
+    words: [],
+    addingWordStatus: false
   };
 
   static propTypes = {
@@ -46,38 +57,51 @@ class Words extends PureComponent {
 
   addWord = (word) => {
     const { match } = this.props;
+    this.setState({ addingWordStatus: true });
     axios.post('/api/v1/words', word)
       .then(response => axios.patch(`/api/v1/collections/${match.params.id}/words`, {
         word: response.data.data.id
       }))
       .then((response) => {
-        this.setState({ words: response.data.data });
+        this.setState({ words: response.data.data, addingWordStatus: false });
       });
   };
 
   render() {
-    const { isLoading, words } = this.state;
-    const { classes } = this.props;
+    const { isLoading, words, addingWordStatus } = this.state;
+    const { classes, match } = this.props;
     return (
       <div className={classes.root}>
         <Grid container spacing={24}>
-          { isLoading && <CircularProgress className={classes.preloader} /> }
-          { words.map(word => (
-            <Grid item xs={4}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Typography variant="h5" component="h2">
-                    { word.de }
-                  </Typography>
-                  <Typography component="p" className={classes.translation}>
-                    { word.ru }
-                  </Typography>
-                </CardContent>
-              </Card>
+          <Grid container item spacing={24} xs={9}>
+            { isLoading && <CircularProgress className={classes.preloader} /> }
+            { words.map(word => (
+              <Grid item xs={3}>
+                <Card className={classes.card}>
+                  <CardContent>
+                    <Typography variant="h5" component="h2">
+                      { word.de }
+                    </Typography>
+                    <Typography component="p" className={classes.translation}>
+                      { word.ru }
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            )) }
+            <Grid item xs={12}>
+              {!isLoading && <AddWord addWord={this.addWord} isLoading={addingWordStatus} />}
             </Grid>
-          )) }
+          </Grid>
+          <Grid item xs={3}>
+            <Paper className={classes.aside}>
+              <Button variant="contained" component={Link} color="primary" to={`${match.url}/test`}>
+                <StartIcon className={classes.startIcon} />
+                Тестирование
+              </Button>
+            </Paper>
+          </Grid>
         </Grid>
-        {!isLoading && <AddWord addWord={this.addWord} />}
       </div>
     );
   }

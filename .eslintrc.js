@@ -15,6 +15,7 @@ module.exports = {
       checkContextTypes: true,
       checkChildContextTypes: true,
     }],
+    "react/jsx-one-expression-per-line": "off"
   },
   "settings": {
     "import/resolver": {

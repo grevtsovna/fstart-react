@@ -1,0 +1,62 @@
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const styles = () => ({
+  button: {
+    width: '100%'
+  },
+  progressColorPrimary: {
+    color: '#ffffff'
+  },
+  progress: {
+    marginLeft: 15
+  }
+});
+
+class Answer extends PureComponent {
+  static propTypes = {
+    answer: PropTypes.string.isRequired,
+    checkHandler: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired
+  };
+
+  clickHandler = (evt) => {
+    const { checkHandler } = this.props;
+    checkHandler(evt.target.dataset.value);
+  };
+
+  render() {
+    const { answer, classes, isLoading } = this.props;
+    return (
+      <Grid item xs={6}>
+        <Button
+          className={classes.button}
+          size="large"
+          data-value={answer}
+          color="primary"
+          variant="contained"
+          disabled={isLoading}
+          onClick={this.clickHandler}
+        >
+          { answer }
+          { isLoading
+            && (
+              <CircularProgress
+                className={classes.progress}
+                classes={{ colorPrimary: classes.progressColorPrimary }}
+                size={15}
+              />
+            )
+          }
+        </Button>
+      </Grid>
+    );
+  }
+}
+
+export default withStyles(styles)(Answer);

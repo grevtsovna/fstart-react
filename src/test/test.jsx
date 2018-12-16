@@ -10,7 +10,8 @@ class Test extends PureComponent {
     testData: [],
     current: 0,
     answers: [],
-    showResult: false
+    showResult: false,
+    isCheckingAnswer: false
   };
 
   static propTypes = {
@@ -37,11 +38,13 @@ class Test extends PureComponent {
   checkAnswer = (answer) => {
     const { testData, current } = this.state;
     const { id } = testData[current];
+    this.setState({ isCheckingAnswer: true });
     axios.post('/api/v1/tests/check', {
       id, answer
     }).then((response) => {
       this.setState(prevState => ({
-        answers: [...prevState.answers, response.data.data]
+        answers: [...prevState.answers, response.data.data],
+        isCheckingAnswer: false
       }));
       this.nextQuestion();
     });
@@ -53,7 +56,8 @@ class Test extends PureComponent {
       testData,
       current,
       showResult,
-      answers
+      answers,
+      isCheckingAnswer
     } = this.state;
     return (
       <div className="questions">
@@ -63,6 +67,7 @@ class Test extends PureComponent {
             <Question
               questionData={testData[current]}
               checkAnswer={this.checkAnswer}
+              isCheckingAnswer={isCheckingAnswer}
             />
           )
         }

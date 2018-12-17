@@ -12,6 +12,10 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import StartIcon from '@material-ui/icons/PlayCircleOutline';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const styles = () => ({
   root: {
@@ -19,6 +23,7 @@ const styles = () => ({
     margin: '50px auto 0'
   },
   card: {
+    position: 'relative',
     margin: '0 0 24px'
   },
   translation: {
@@ -32,6 +37,11 @@ const styles = () => ({
   },
   aside: {
     padding: 15
+  },
+  icon: {
+    position: 'absolute',
+    right: 10,
+    top: 10
   }
 });
 
@@ -39,7 +49,8 @@ class Words extends PureComponent {
   state = {
     isLoading: true,
     words: [],
-    addingWordStatus: false
+    addingWordStatus: false,
+    anchorEl: null
   };
 
   static propTypes = {
@@ -67,17 +78,39 @@ class Words extends PureComponent {
       });
   };
 
+  moreBtnClickHandler = (evt) => {
+    this.setState({ anchorEl: evt.currentTarget });
+  };
+
+  closeHandler = () => {
+    this.setState({ anchorEl: null });
+  };
+
   render() {
-    const { isLoading, words, addingWordStatus } = this.state;
+    const { isLoading, words, addingWordStatus, anchorEl } = this.state;
     const { classes, match } = this.props;
+    const open = Boolean(anchorEl);
     return (
       <div className={classes.root}>
         <Grid container spacing={24}>
           <Grid container item spacing={24} xs={9}>
             { isLoading && <CircularProgress className={classes.preloader} /> }
             { words.map(word => (
-              <Grid item xs={3}>
+              <Grid item xs={4}>
                 <Card className={classes.card}>
+                  <IconButton
+                    onClick={this.moreBtnClickHandler}
+                    className={classes.icon}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={this.closeHandler}
+                  >
+                    <MenuItem onClick={this.handleClose}>Удалить</MenuItem>
+                  </Menu>
                   <CardContent>
                     <Typography variant="h5" component="h2">
                       { word.de }
@@ -93,14 +126,16 @@ class Words extends PureComponent {
               {!isLoading && <AddWord addWord={this.addWord} isLoading={addingWordStatus} />}
             </Grid>
           </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.aside}>
-              <Button variant="contained" component={Link} color="primary" to={`${match.url}/test`}>
-                <StartIcon className={classes.startIcon} />
-                Тестирование
-              </Button>
-            </Paper>
-          </Grid>
+          { !isLoading && (
+            <Grid item xs={3}>
+              <Paper className={classes.aside}>
+                <Button variant="contained" component={Link} color="primary" to={`${match.url}/test`}>
+                  <StartIcon className={classes.startIcon} />
+                  Тестирование
+                </Button>
+              </Paper>
+            </Grid>
+          )}
         </Grid>
       </div>
     );

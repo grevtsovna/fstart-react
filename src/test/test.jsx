@@ -59,6 +59,7 @@ class Test extends PureComponent {
       answers,
       isCheckingAnswer
     } = this.state;
+    const { match } = this.props;
     return (
       <div className="questions">
         { !isLoading
@@ -74,7 +75,7 @@ class Test extends PureComponent {
         { !isLoading
           && showResult
           && (
-            <Results answers={answers} />
+            <Results answers={answers} collectionId={match.params.id} />
           )
         }
       </div>

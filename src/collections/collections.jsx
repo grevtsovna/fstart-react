@@ -7,6 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
+import AddCollection from 'add-collection/add-collection';
 
 const styles = theme => ({
   root: {
@@ -22,7 +23,8 @@ const styles = theme => ({
 class Collections extends PureComponent {
   state = {
     isLoading: true,
-    collections: []
+    collections: [],
+    isAddingCollection: false
   };
 
   static propTypes = {
@@ -42,9 +44,20 @@ class Collections extends PureComponent {
     console.log(evt.currentTarget.value);
   };
 
+  addCollection = (name) => {
+    this.setState({ isAddingCollection: true });
+    axios.post('/api/v1/collections', { name })
+      .then((response) => {
+        this.setState(prevState => ({
+          collections: [...prevState.collections, response.data.data],
+          isAddingCollection: false
+        }));
+      });
+  };
+
   render() {
     const { classes } = this.props;
-    const { collections, isLoading } = this.state;
+    const { collections, isLoading, isAddingCollection } = this.state;
     return (
       <div className="collections">
         <div className={classes.root}>
@@ -62,6 +75,11 @@ class Collections extends PureComponent {
                 </Link>
               </Grid>
             ))}
+            <Grid item xs={12}>
+              { !isLoading && (
+                <AddCollection isLoading={isAddingCollection} addCollection={this.addCollection} />
+              )}
+            </Grid>
           </Grid>
         </div>
       </div>

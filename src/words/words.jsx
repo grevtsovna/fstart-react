@@ -87,14 +87,23 @@ class Words extends PureComponent {
   };
 
   render() {
-    const { isLoading, words, addingWordStatus, anchorEl } = this.state;
+    const {
+      isLoading,
+      words,
+      addingWordStatus,
+      anchorEl
+    } = this.state;
     const { classes, match } = this.props;
     const open = Boolean(anchorEl);
     return (
       <div className={classes.root}>
         <Grid container spacing={24}>
+          { isLoading && (
+            <Grid item container xs={12} alignItems="center">
+              <CircularProgress className={classes.preloader} />
+            </Grid>
+          )}
           <Grid container item spacing={24} xs={9}>
-            { isLoading && <CircularProgress className={classes.preloader} /> }
             { words.map(word => (
               <Grid item xs={4}>
                 <Card className={classes.card}>

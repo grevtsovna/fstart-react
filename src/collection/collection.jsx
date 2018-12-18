@@ -13,7 +13,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
 
 const styles = () => ({
   container: {
@@ -48,7 +47,6 @@ class Collection extends PureComponent {
   };
 
   handleClose = () => {
-    console.log('close!');
     this.setState({ isAlertOpen: false });
   };
 
@@ -58,8 +56,8 @@ class Collection extends PureComponent {
   };
 
   removeHandle = () => {
-    const { removeCollection } = this.props;
-    removeCollection();
+    const { removeCollection, collection } = this.props;
+    removeCollection(collection.id);
     this.handleClose();
   };
 
@@ -87,7 +85,9 @@ class Collection extends PureComponent {
           open={isAlertOpen}
           onClose={this.handleClose}
         >
-          <DialogTitle>Вы действительно хотите удалить словарь &laquo;{collection.name}&raquo;?</DialogTitle>
+          <DialogTitle>
+            Вы действительно хотите удалить словарь &laquo;{collection.name}&raquo;?
+          </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               При удалении словаря, все слова, входящие в него, будут утеряны.

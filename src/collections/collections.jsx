@@ -4,19 +4,12 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
 import AddCollection from 'add-collection/add-collection';
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     flexGrow: 1
-  },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: 'center',
-    color: theme.palette.text.secondary
   }
 });
 
@@ -24,7 +17,7 @@ class Collections extends PureComponent {
   state = {
     isLoading: true,
     collections: [],
-    isAddingCollection: false
+    isAddingCollection: false,
   };
 
   static propTypes = {
@@ -55,6 +48,16 @@ class Collections extends PureComponent {
       });
   };
 
+  removeCollection = (id) => {
+    axios.delete(`/api/v1/collections/${id}`)
+      .then((response) => {
+        console.log(response);
+        this.setState(prevState => ({
+          collections: prevState.collections.filter(collection => response.data.data.id !== collection.id)
+        }));
+      });
+  };
+
   render() {
     const { classes } = this.props;
     const { collections, isLoading, isAddingCollection } = this.state;
@@ -64,16 +67,12 @@ class Collections extends PureComponent {
           <Grid container spacing={24}>
             { isLoading && <CircularProgress className="collections__preloader" />}
             {collections.map(collection => (
-              <Grid item xs={12} key={collection.id}>
-                <Link to={`/collections/${collection.id}`}>
-                  <Paper className={classes.paper}>
-                    <Collection
-                      collection={collection}
-                      changeName={this.changeName}
-                    />
-                  </Paper>
-                </Link>
-              </Grid>
+              <Collection
+                key={collection.id}
+                collection={collection}
+                changeName={this.changeName}
+                removeCollection={this.removeCollection}
+              />
             ))}
             <Grid item xs={12}>
               { !isLoading && (

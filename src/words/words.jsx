@@ -4,27 +4,17 @@ import { withStyles } from '@material-ui/core/styles';
 import AddWord from 'add-word/add-word';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import StartIcon from '@material-ui/icons/PlayCircleOutline';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Word from 'word/word';
 
 const styles = () => ({
   root: {
     maxWidth: 900,
     margin: '50px auto 0'
-  },
-  card: {
-    position: 'relative',
-    margin: '0 0 24px'
   },
   translation: {
     margin: '15px 0 0'
@@ -37,11 +27,6 @@ const styles = () => ({
   },
   aside: {
     padding: 15
-  },
-  icon: {
-    position: 'absolute',
-    right: 10,
-    top: 10
   }
 });
 
@@ -78,14 +63,6 @@ class Words extends PureComponent {
       });
   };
 
-  moreBtnClickHandler = (evt) => {
-    this.setState({ anchorEl: evt.currentTarget });
-  };
-
-  closeHandler = () => {
-    this.setState({ anchorEl: null });
-  };
-
   render() {
     const {
       isLoading,
@@ -105,30 +82,8 @@ class Words extends PureComponent {
           )}
           <Grid container item spacing={24} xs={9}>
             { words.map(word => (
-              <Grid item xs={4}>
-                <Card className={classes.card}>
-                  <IconButton
-                    onClick={this.moreBtnClickHandler}
-                    className={classes.icon}
-                  >
-                    <MoreVertIcon />
-                  </IconButton>
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={this.closeHandler}
-                  >
-                    <MenuItem onClick={this.handleClose}>Удалить</MenuItem>
-                  </Menu>
-                  <CardContent>
-                    <Typography variant="h5" component="h2">
-                      { word.de }
-                    </Typography>
-                    <Typography component="p" className={classes.translation}>
-                      { word.ru }
-                    </Typography>
-                  </CardContent>
-                </Card>
+              <Grid item xs={4} key={word.id}>
+                <Word word={word} />
               </Grid>
             )) }
             <Grid item xs={12}>

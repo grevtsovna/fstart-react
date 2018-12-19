@@ -36,6 +36,13 @@ class AddCollection extends PureComponent {
 
   name = createRef();
 
+  componentDidUpdate() {
+    const { isLoading } = this.props;
+    if (!isLoading) {
+      this.name.current.value = '';
+    }
+  }
+
   submitHandle = (evt) => {
     const { addCollection } = this.props;
     evt.preventDefault();

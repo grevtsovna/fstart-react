@@ -17,7 +17,7 @@ class Collections extends PureComponent {
   state = {
     isLoading: true,
     collections: [],
-    isAddingCollection: false,
+    isAddingCollection: false
   };
 
   static propTypes = {
@@ -34,6 +34,7 @@ class Collections extends PureComponent {
   }
 
   changeName = (evt) => {
+    // TODO: Реализовать изменение названия словаря
     console.log(evt.currentTarget.value);
   };
 
@@ -51,9 +52,9 @@ class Collections extends PureComponent {
   removeCollection = (id) => {
     axios.delete(`/api/v1/collections/${id}`)
       .then((response) => {
-        console.log(response);
+        const { data } = response.data;
         this.setState(prevState => ({
-          collections: prevState.collections.filter(collection => response.data.data.id !== collection.id)
+          collections: prevState.collections.filter(collection => data.id !== collection.id)
         }));
       });
   };

@@ -13,6 +13,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = () => ({
   container: {
@@ -31,6 +32,10 @@ const styles = () => ({
     right: 20,
     top: '50%',
     transform: 'translateY(-50%)'
+  },
+  preloader: {
+    marginTop: 20,
+    marginLeft: 10
   }
 });
 
@@ -43,7 +48,8 @@ class Collection extends PureComponent {
     collection: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
     changeName: PropTypes.func.isRequired,
-    removeCollection: PropTypes.func.isRequired
+    removeCollection: PropTypes.func.isRequired,
+    isLoading: PropTypes.object.isRequired
   };
 
   handleClose = () => {
@@ -51,8 +57,18 @@ class Collection extends PureComponent {
   };
 
   clickHandle = (evt) => {
+    const { isLoading } = this.props;
     evt.preventDefault();
-    this.setState({ isAlertOpen: true });
+    if (!isLoading.status) {
+      this.setState({ isAlertOpen: true });
+    }
+  };
+
+  clickLinkHandle = (evt) => {
+    const { isLoading } = this.props;
+    if (isLoading.status) {
+      evt.preventDefault();
+    }
   };
 
   removeHandle = () => {
@@ -62,20 +78,28 @@ class Collection extends PureComponent {
   };
 
   render() {
-    const { collection, classes, changeName } = this.props;
+    const {
+      collection,
+      classes,
+      changeName,
+      isLoading
+    } = this.props;
     const { isAlertOpen } = this.state;
     return (
       <Grid item xs={12}>
-        <Link to={`/collections/${collection.id}`}>
+        <Link to={`/collections/${collection.id}`} onClick={this.clickLinkHandle}>
           <Paper className={classes.paper}>
             <TextField
               id={collection.id}
               label="Название словаря"
               className={classes.textField}
-              value={collection.name}
-              onBlur={changeName}
+              defaultValue={collection.name}
+              onBlur={changeName(collection.id)}
               onClick={(evt) => { evt.preventDefault(); }}
             />
+            {isLoading.status
+            && isLoading.id === collection.id
+            && <CircularProgress size={20} className={classes.preloader} />}
             <Fab size="small" color="secondary" className={classes.delete} onClick={this.clickHandle}>
               <DeleteIcon />
             </Fab>

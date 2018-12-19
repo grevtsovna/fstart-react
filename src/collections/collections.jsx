@@ -17,7 +17,11 @@ class Collections extends PureComponent {
   state = {
     isLoading: true,
     collections: [],
-    isAddingCollection: false
+    isAddingCollection: false,
+    isChangingName: {
+      status: false,
+      id: null
+    }
   };
 
   static propTypes = {
@@ -33,9 +37,11 @@ class Collections extends PureComponent {
       });
   }
 
-  changeName = (evt) => {
-    // TODO: Реализовать изменение названия словаря
-    console.log(evt.currentTarget.value);
+  changeName = id => (evt) => {
+    const name = evt.currentTarget.value;
+    this.setState({ isChangingName: { status: true, id } });
+    axios.patch(`api/v1/collections/${id}/name`, { name })
+      .then(() => { this.setState({ isChangingName: { status: false, id: null } }); });
   };
 
   addCollection = (name) => {
@@ -61,7 +67,12 @@ class Collections extends PureComponent {
 
   render() {
     const { classes } = this.props;
-    const { collections, isLoading, isAddingCollection } = this.state;
+    const {
+      collections,
+      isLoading,
+      isAddingCollection,
+      isChangingName
+    } = this.state;
     return (
       <div className="collections">
         <div className={classes.root}>
@@ -73,6 +84,7 @@ class Collections extends PureComponent {
                 collection={collection}
                 changeName={this.changeName}
                 removeCollection={this.removeCollection}
+                isLoading={isChangingName}
               />
             ))}
             <Grid item xs={12}>

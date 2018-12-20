@@ -34,8 +34,7 @@ class Words extends PureComponent {
   state = {
     isLoading: true,
     words: [],
-    addingWordStatus: false,
-    anchorEl: null
+    addingWordStatus: false
   };
 
   static propTypes = {
@@ -63,15 +62,23 @@ class Words extends PureComponent {
       });
   };
 
+  removeWord = (wordId) => {
+    const { match } = this.props;
+    axios.delete(`/api/v1/words/${wordId}`, { data: { collectionId: match.params.id } })
+      .then((response) => {
+        this.setState(prevState => ({
+          words: [...prevState.words.filter(word => word.id !== response.data.deletedWordId)]
+        }));
+      });
+  };
+
   render() {
     const {
       isLoading,
       words,
-      addingWordStatus,
-      anchorEl
+      addingWordStatus
     } = this.state;
     const { classes, match } = this.props;
-    const open = Boolean(anchorEl);
     return (
       <div className={classes.root}>
         <Grid container spacing={24}>
@@ -83,7 +90,7 @@ class Words extends PureComponent {
           <Grid container item spacing={24} xs={9}>
             { words.map(word => (
               <Grid item xs={4} key={word.id}>
-                <Word word={word} />
+                <Word word={word} removeWord={this.removeWord} />
               </Grid>
             )) }
             <Grid item xs={12}>

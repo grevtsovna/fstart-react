@@ -1,20 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
-import { Link } from 'react-router-dom';
-import Paper from '@material-ui/core/Paper';
-import classNames from 'classnames';
 
 const styles = () => ({
   card: {
@@ -35,7 +30,8 @@ class Word extends PureComponent {
 
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    word: PropTypes.object.isRequired
+    word: PropTypes.object.isRequired,
+    removeWord: PropTypes.func.isRequired
   };
 
   handleClose = () => {
@@ -46,8 +42,9 @@ class Word extends PureComponent {
     this.setState({ isAlertOpen: true });
   };
 
-  removeWord = () => {
-    console.log('remove!');
+  removeWordHandle = () => {
+    const { removeWord, word } = this.props;
+    removeWord(word.id);
     this.setState({ isAlertOpen: false });
   };
 
@@ -81,7 +78,7 @@ class Word extends PureComponent {
             <Button onClick={this.handleClose} color="primary" autoFocus>
               Отмена
             </Button>
-            <Button onClick={this.removeWord} color="secondary" variant="contained">
+            <Button onClick={this.removeWordHandle} color="secondary" variant="contained">
               Удалить
             </Button>
           </DialogActions>

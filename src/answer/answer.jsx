@@ -25,9 +25,9 @@ class Answer extends PureComponent {
     isLoading: PropTypes.bool.isRequired
   };
 
-  clickHandler = (evt) => {
-    const { checkHandler } = this.props;
-    checkHandler(evt.target.dataset.value);
+  clickHandler = () => {
+    const { checkHandler, answer } = this.props;
+    checkHandler(answer);
   };
 
   render() {
@@ -37,7 +37,6 @@ class Answer extends PureComponent {
         <Button
           className={classes.button}
           size="large"
-          data-value={answer}
           color="primary"
           variant="contained"
           disabled={isLoading}

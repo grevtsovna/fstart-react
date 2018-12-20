@@ -10,6 +10,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = () => ({
   card: {
@@ -20,6 +21,27 @@ const styles = () => ({
     position: 'absolute',
     right: 10,
     bottom: 10
+  },
+  loader: {
+    position: 'relative',
+    display: 'inline-block',
+    verticalAlign: 'middle'
+  },
+  loader1: {
+    color: '#eef3fd'
+  },
+  loader2: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    color: '#6798e5'
+  },
+  caption: {
+    display: 'inline-block',
+    marginRight: 10
+  },
+  progress: {
+    margin: 10
   }
 });
 
@@ -51,6 +73,12 @@ class Word extends PureComponent {
   render() {
     const { classes, word } = this.props;
     const { isAlertOpen } = this.state;
+    const { success, fail } = word.statistics;
+    const statDifference = success - fail;
+    let progress = 0;
+    if (statDifference < 5 && statDifference > 0) {
+      progress = statDifference / 4 * 100;
+    }
     return (
       <div>
         <Card className={classes.card}>
@@ -65,6 +93,25 @@ class Word extends PureComponent {
           <IconButton size="small" color="secondary" className={classes.delete} onClick={this.clickDeleteHandle}>
             <DeleteIcon />
           </IconButton>
+          <div className={classes.progress}>
+            <Typography variant="caption" className={classes.caption}>Прогресс:</Typography>
+            <div className={classes.loader}>
+              <CircularProgress
+                variant="determinate"
+                value={100}
+                className={classes.loader1}
+                size={24}
+                thickness={4}
+              />
+              <CircularProgress
+                variant="static"
+                value={progress}
+                className={classes.loader2}
+                size={24}
+                thickness={4}
+              />
+            </div>
+          </div>
         </Card>
 
         <Dialog

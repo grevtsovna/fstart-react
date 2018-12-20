@@ -49,7 +49,7 @@ class Results extends PureComponent {
               { answers.filter(answer => answer).length }
               &nbsp;из&nbsp;
               { answers.length }
-              вопросов
+              &nbsp;вопросов
             </Typography>
           </Paper>
         </Grid>

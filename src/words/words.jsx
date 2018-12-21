@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import StartIcon from '@material-ui/icons/PlayCircleOutline';
 import Word from 'word/word';
+import Typography from '@material-ui/core/es/Typography/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = () => ({
   root: {
@@ -27,6 +29,9 @@ const styles = () => ({
   },
   aside: {
     padding: 15
+  },
+  asideCaption: {
+    marginTop: 10
   }
 });
 
@@ -100,10 +105,27 @@ class Words extends PureComponent {
           { !isLoading && (
             <Grid item xs={3}>
               <Paper className={classes.aside}>
-                <Button variant="contained" component={Link} color="primary" to={`${match.url}/test`}>
-                  <StartIcon className={classes.startIcon} />
-                  Тестирование
-                </Button>
+                <Tooltip
+                  title="Для запуска теста необходимо как минимум 5 слов в словаре"
+                  placement="top"
+                  disableHoverListener={words.length >= 5}
+                >
+                  <div>
+                    <Button
+                      variant="contained"
+                      component={Link}
+                      color="primary"
+                      to={`${match.url}/test`}
+                      disabled={words.length < 5}
+                    >
+                      <StartIcon className={classes.startIcon} />
+                      Тестирование
+                    </Button>
+                  </div>
+                </Tooltip>
+                <Typography variant="caption" className={classes.asideCaption}>
+                  Количество слов в словаре: {words.length}
+                </Typography>
               </Paper>
             </Grid>
           )}

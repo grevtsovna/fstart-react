@@ -40,6 +40,14 @@ class AddWord extends PureComponent {
 
   de = createRef();
 
+  componentDidUpdate() {
+    const { isLoading } = this.props;
+    if (!isLoading) {
+      this.ru.current.value = '';
+      this.de.current.value = '';
+    }
+  }
+
   submitHandle = (evt) => {
     const { addWord } = this.props;
     evt.preventDefault();

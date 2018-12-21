@@ -30,8 +30,9 @@ const styles = () => ({
   aside: {
     padding: 15
   },
-  asideCaption: {
-    marginTop: 10
+  buttons: {
+    width: '100%',
+    marginBottom: 10
   }
 });
 
@@ -117,13 +118,22 @@ class Words extends PureComponent {
                       color="primary"
                       to={`${match.url}/test`}
                       disabled={words.length < 5}
+                      className={classes.buttons}
                     >
                       <StartIcon className={classes.startIcon} />
                       Тестирование
                     </Button>
                   </div>
                 </Tooltip>
-                <Typography variant="caption" className={classes.asideCaption}>
+                <Button
+                  variant="contained"
+                  component={Link}
+                  to="/"
+                  className={classes.buttons}
+                >
+                  Cписок словарей
+                </Button>
+                <Typography variant="caption">
                   Количество слов в словаре: {words.length}
                 </Typography>
               </Paper>

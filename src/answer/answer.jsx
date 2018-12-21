@@ -39,11 +39,12 @@ class Answer extends PureComponent {
           size="large"
           color="primary"
           variant="contained"
-          disabled={isLoading}
+          disabled={isLoading.status}
           onClick={this.clickHandler}
         >
           { answer }
-          { isLoading
+          { isLoading.status
+            && isLoading.answer === answer
             && (
               <CircularProgress
                 className={classes.progress}

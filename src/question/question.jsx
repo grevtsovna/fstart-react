@@ -38,7 +38,7 @@ class Question extends PureComponent {
       <div className={classes.question}>
         <Grid container spacing={24}>
           <Grid item xs={12}>
-            <Typography variant="caption" className={classes.caption}>Выберите правильный вариант перевода:</Typography>
+            <Typography variant="h6" className={classes.caption}>Выберите правильный вариант перевода:</Typography>
             <Paper className={classes.questionCard}>
               <Typography variant="h3" align="center">{ questionData.de }</Typography>
             </Paper>

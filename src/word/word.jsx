@@ -13,9 +13,17 @@ import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = () => ({
+  root: {
+    height: 'calc(100% - 24px)',
+    margin: '0 0 24px'
+  },
   card: {
     position: 'relative',
-    margin: '0 0 24px'
+    height: 'calc(100% - 24px)',
+    padding: '10px 10px 30px'
+  },
+  cardContent: {
+    padding: 0
   },
   delete: {
     position: 'absolute',
@@ -41,7 +49,9 @@ const styles = () => ({
     marginRight: 10
   },
   progress: {
-    margin: 10
+    position: 'absolute',
+    bottom: 17,
+    left: 10
   }
 });
 
@@ -80,9 +90,9 @@ class Word extends PureComponent {
       progress = statDifference / 4 * 100;
     }
     return (
-      <div>
+      <div className={classes.root}>
         <Card className={classes.card}>
-          <CardContent>
+          <CardContent className={classes.cardContent}>
             <Typography variant="h5" component="h2">
               { word.de }
             </Typography>

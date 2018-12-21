@@ -3,6 +3,16 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Question from 'question/question';
 import Results from 'results/results';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = () => ({
+  root: {
+    maxWidth: 900,
+    margin: '50px auto'
+  }
+});
 
 class Test extends PureComponent {
   state = {
@@ -18,7 +28,8 @@ class Test extends PureComponent {
   };
 
   static propTypes = {
-    match: PropTypes.object.isRequired
+    match: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired
   };
 
   componentDidMount() {
@@ -65,17 +76,24 @@ class Test extends PureComponent {
       answers,
       isCheckingAnswer
     } = this.state;
-    const { match } = this.props;
+    const { match, classes } = this.props;
     return (
       <div className="questions">
         { !isLoading
           && !showResult
           && (
-            <Question
-              questionData={testData[current]}
-              checkAnswer={this.checkAnswer}
-              isCheckingAnswer={isCheckingAnswer}
-            />
+            <div className={classes.root}>
+              <Grid container spacing={24}>
+                <Grid item xs={12}>
+                  <Typography variant="caption">Вопрос {current + 1} из {testData.length}</Typography>
+                </Grid>
+              </Grid>
+              <Question
+                questionData={testData[current]}
+                checkAnswer={this.checkAnswer}
+                isCheckingAnswer={isCheckingAnswer}
+              />
+            </div>
           )
         }
         { !isLoading
@@ -89,4 +107,4 @@ class Test extends PureComponent {
   }
 }
 
-export default Test;
+export default withStyles(styles)(Test);

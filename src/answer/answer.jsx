@@ -22,7 +22,7 @@ class Answer extends PureComponent {
     answer: PropTypes.string.isRequired,
     checkHandler: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
-    isLoading: PropTypes.bool.isRequired
+    isLoading: PropTypes.object.isRequired
   };
 
   clickHandler = () => {

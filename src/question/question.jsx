@@ -24,7 +24,7 @@ class Question extends PureComponent {
     questionData: PropTypes.object.isRequired,
     checkAnswer: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
-    isCheckingAnswer: PropTypes.bool.isRequired
+    isCheckingAnswer: PropTypes.object.isRequired
   };
 
   checkHandler = (answer) => {
@@ -46,6 +46,7 @@ class Question extends PureComponent {
           <Grid item container xs={12} spacing={24}>
             { questionData.answers.map(answer => (
               <Answer
+                key={answer}
                 answer={answer}
                 checkHandler={this.checkHandler}
                 isLoading={isCheckingAnswer}
